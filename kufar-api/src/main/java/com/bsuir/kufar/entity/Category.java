@@ -10,4 +10,5 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class Category extends BaseEntity {
     private String name;
+    private String iconName;
 }
