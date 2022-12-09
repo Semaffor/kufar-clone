@@ -1,0 +1,23 @@
+.Header {
+  nav {
+    position: relative;
+    padding: 0 390px;
+    margin: 0 0 20px 0;
+    align-items: center;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px solid #D2D2CF;
+  }
+
+
+  img {
+    height: 36px;
+  }
+}
+
+.ThirdElem {
+  display: flex;
+  align-items: center;
+}

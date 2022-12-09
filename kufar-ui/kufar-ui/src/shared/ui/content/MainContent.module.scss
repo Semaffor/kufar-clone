@@ -1,0 +1,38 @@
+.MainContent {
+  width: 700px;
+  border: 2px solid black;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  img {
+    margin-bottom: 10px;
+  }
+
+  hr {
+    margin: 15px 5px 15px 5px;
+  }
+}
+
+.Characteristics {
+  display: flex;
+  font-size: 18px;
+
+  &__params {
+    color: gray;
+    width: 150px;
+    font-size: 16px;
+
+    &__param {
+      padding-bottom: 6px ;
+    }
+  }
+
+  &__values {
+  }
+}
+
+.Description {
+
+}

@@ -1,0 +1,45 @@
+.SideBar {
+  border: 2px solid black;
+  width: 300px;
+  padding: 5px;
+
+  hr {
+    margin: 10px;
+    background-color: #D2D2CF;
+  }
+}
+
+.PriceElem {
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 700;
+  color: #262626;
+}
+
+.Title {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #262626;
+  margin-bottom: 4px;
+  word-wrap: break-word;
+}
+.UnderTitle {
+  width: 100%;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 20px;
+  color: gray;
+}
+
+.Label {
+  display: inline-flex;
+  padding: 6px 12px;
+  margin: 6px 0 6px 0;
+  background-color: #f6efff;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #262626;
+  cursor: default;
+}
