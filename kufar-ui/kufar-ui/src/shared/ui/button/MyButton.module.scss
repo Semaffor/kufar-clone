@@ -1,0 +1,13 @@
+.MyButton {
+    width: 125px;
+    margin: 0 0 20px 0;
+    border-color: green;
+    background-color: white;
+    height: 40px;
+    color: green;
+    font-weight: 750;
+
+  :hover {
+    cursor: pointer;
+  }
+}
