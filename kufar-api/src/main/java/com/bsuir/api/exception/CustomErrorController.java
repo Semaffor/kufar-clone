@@ -1,8 +1,8 @@
 package com.bsuir.api.exception;
 
+import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +12,15 @@ import java.util.Map;
 
 //TODO ErrorController?
 @Controller
-public class CustomErrorController implements ErrorController {
+public class CustomErrorController extends AbstractErrorController {
     private static final String PATH = "/error";
 
-    private ErrorAttributes errorAttributes;
+    private final ErrorAttributes errorAttributes;
+
+    public CustomErrorController(ErrorAttributes errorAttributes) {
+        super(errorAttributes);
+        this.errorAttributes = errorAttributes;
+    }
 
     public String getErrorPath() {
         return PATH;
