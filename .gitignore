@@ -1,5 +1,6 @@
 ######              JAVA               ##############
 
+.gradle
 *.bat
 gradlew
 settings.gradle
