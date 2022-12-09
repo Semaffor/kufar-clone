@@ -34,8 +34,7 @@ public class CustomErrorController extends AbstractErrorController {
                 webRequest,
                 ErrorAttributeOptions.of(ErrorAttributeOptions.Include.EXCEPTION, ErrorAttributeOptions.Include.MESSAGE)
         );
-
-        return ResponseEntity
+        ResponseEntity<ErrorDto> body = ResponseEntity
                 .status((Integer) attributes.get("status"))
                 .body(ErrorDto
                         .builder()
@@ -43,5 +42,7 @@ public class CustomErrorController extends AbstractErrorController {
                         .errorDescription((String) attributes.get("message"))
                         .build()
                 );
+        System.out.println(body);
+        return body;
     }
 }

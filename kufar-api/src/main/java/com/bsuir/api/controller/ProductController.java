@@ -1,5 +1,7 @@
 package com.bsuir.api.controller;
 
+import com.bsuir.api.dto.CategoryDto;
+import com.bsuir.api.dto.ProductDto;
 import com.bsuir.kufar.entity.Product;
 import com.bsuir.kufar.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -41,5 +43,10 @@ public class ProductController {
     @GetMapping("/{id}")
     public Product getProduct(@PathVariable Long id) {
         return productService.findById(id);
+    }
+
+    @PostMapping
+    public Product saveProduct(@RequestBody ProductDto productDto) {
+        return productService.saveProduct(productDto);
     }
 }

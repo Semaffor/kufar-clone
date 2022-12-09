@@ -3,6 +3,8 @@ package com.bsuir.kufar.service;
 import com.bsuir.api.exception.NotFoundException;
 import com.bsuir.kufar.entity.BaseEntity;
 import com.bsuir.kufar.repository.BaseRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

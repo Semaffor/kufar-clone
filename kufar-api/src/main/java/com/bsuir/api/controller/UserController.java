@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
 public class UserController {
 
     private final UserService userService;
     private final UserDtoFactory userDtoFactory;
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     private UserDto getUser(@PathVariable Long id) {
         return userDtoFactory.createDto(userService.findById(id));
     }
