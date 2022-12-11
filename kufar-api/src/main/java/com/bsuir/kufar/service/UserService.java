@@ -1,7 +1,8 @@
 package com.bsuir.kufar.service;
 
+import com.bsuir.api.dto.UserDto;
 import com.bsuir.kufar.entity.User;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetails;
 import reactor.core.publisher.Mono;
 
 public interface UserService  extends CrudOperations<User>{
@@ -13,5 +14,7 @@ public interface UserService  extends CrudOperations<User>{
 
     boolean recoverPasswordByEmail(String email);
 
-    Mono<UserDetails> findByLogin(String username);
+//    Mono<UserDetails> findByLogin(String username);
+
+    UserDto auth(User user);
 }

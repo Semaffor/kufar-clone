@@ -1,40 +1,124 @@
-import React, {useState} from 'react';
-import {Button, FormControl, Input, InputAdornment, InputLabel, TextField} from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import {AccountCircle, Visibility, VisibilityOff} from "@mui/icons-material";
-import Box from "@mui/material/Box";
+import React, {useContext, useState} from 'react';
+import {Alert, Button} from "@mui/material";
+import {AccountCircle} from "@mui/icons-material";
 import cl from "./Entrance.module.scss"
 import KeyIcon from '@mui/icons-material/Key';
-import Password from "../../shared/ui/button/Password";
-import FieldWithIcon from "../../shared/ui/button/FieldWithIcon";
 import {useNavigate} from "react-router-dom";
+import * as Yup from "yup";
+import {Field, Form, Formik} from "formik";
+import {useFetching} from "../../shared/hooks/useFetching";
+import UserService from "../../API/UserService";
+import {AuthContext} from "../../shared/context/globalContext";
+
+const LogInSchema = Yup.object().shape({
+  login: Yup.string()
+    .min(3, 'Не менее 3 символов')
+    .max(50, 'Слишком длинный логин')
+    .required('Обязательное поле'),
+  password: Yup.string()
+    .min(3, 'Не менее 3 символов')
+    .max(30, 'Не более 30 символов')
+    .required('Обязательное поле'),
+
+});
 
 const LogIn = () => {
-  const [login, setLogin] = useState("")
-  const [password, setPassword] = useState("")
-
   const router = useNavigate()
+  const {user, setUser} = useContext(AuthContext)
+  const[state, setState] = useState(0)
 
-  function logIn () {
+  const [fetching, isLoading, errorsReq] = useFetching(async (credentials) => {
+    const resp = await UserService.authInSystem(credentials)
+    const statusCode = resp.data.statusCode
+    console.log(statusCode);
 
-  }
+    if (statusCode === 'OK') {
+      setState(1)
+      setUser(resp.data);
+      router('/products')
+    } else if (statusCode === 'INCORRECT_LOGIN_OR_PASSWORD') {
+      setState(2)
+    } else if (statusCode === 'ACCOUNT_NOT_ACTIVATED'){
+      setState(3)
+    } else if (statusCode === 'ACCOUNT_BAN') {
+      setState(4)
+    }
+  })
 
   return (
     <div className={cl.LogIn}>
-      <form onSubmit={logIn}>
-        <FieldWithIcon fieldTitle={"Логин/Почта"} fieldValue={login} onChangeField={setLogin}>
-          <AccountCircle sx={{mr: 1, my: 0.5 }} color={'primary'} />
-        </FieldWithIcon>
-       <Password label={"Пароль"} password={password} onChangePassword={setPassword}/>
-        <a style={{marginTop:10}}
-           href={""}
-           onClick={e => router('user/recovery')}
-        >Забыли пароль</a>
-        <Button sx={{mt: 2}}
-                variant="contained"
-                onClick={logIn}
-        >Войти</Button>
-      </form>
+      <Formik
+        initialValues={{
+          login: '',
+          password: '',
+        }}
+        validationSchema={LogInSchema}
+        onSubmit={values => {
+          fetching(values)
+        }}
+      >
+        {({errors, touched}) => (
+          <Form>
+            <div className={cl.CustomFieldBox}>
+              <div className={cl.MyField}>
+                <AccountCircle sx={{mr: 1, my: 1}} color={'primary'}/>
+                <Field
+                  className={cl.Input}
+                  name="login"
+                  placeholder="Логин"
+                />
+              </div>
+              <div className={cl.Error}>
+                {errors.login && touched.login
+                  ? <Alert sx={{mt: 1}} severity='error'>{errors.login}</Alert>
+                  : null}
+              </div>
+            </div>
+
+            <div className={cl.CustomFieldBox}>
+              <div className={cl.MyField}>
+                <KeyIcon sx={{mr: 1, my: 1}} color={'primary'}/>
+                <Field
+                  className={cl.Input}
+                  name="password"
+                  type="password"
+                  placeholder="Пароль"
+                />
+              </div>
+              <div className={cl.Error}>
+                {errors.password && touched.password
+                  ? <Alert sx={{mt: 1}} severity='error'>{errors.password}</Alert>
+                  : null}
+              </div>
+            </div>
+
+            {state === 1
+              ? <Alert sx={{mt: 1}} severity='success'>Вход выполнен</Alert>
+              : null}
+
+            {state === 2
+              ? <Alert sx={{mt: 1}} severity='error'>Неверный логин/пароль</Alert>
+              : null}
+
+            {state === 3
+              ? <Alert sx={{mt: 1}} severity='warning'>Аккаунт не активирован</Alert>
+              : null}
+
+            {state === 4
+              ? <Alert sx={{mt: 1}} severity='warning'>Аккаунт заблокирован</Alert>
+              : null}
+
+            <Button
+              disabled={state === 1}
+              sx={{mt: 2}}
+              type="submit"
+              variant="contained"
+            >
+              Войти
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

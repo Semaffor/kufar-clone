@@ -1,5 +1,7 @@
-package com.bsuir.kufar.entity;
+package com.bsuir.kufar.entity.model;
 
+import com.bsuir.kufar.entity.BaseEntity;
+import com.bsuir.kufar.entity.Filter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
@@ -13,7 +15,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class SubscriptionSearch extends BaseEntity{
+public class SubscriptionSearch extends BaseEntity {
 
     @OneToOne
     private Filter filter;

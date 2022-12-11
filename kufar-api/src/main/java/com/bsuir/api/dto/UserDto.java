@@ -1,6 +1,7 @@
 package com.bsuir.api.dto;
 
 import com.bsuir.kufar.entity.enums.Role;
+import com.bsuir.kufar.entity.enums.StatusCode;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,4 +15,5 @@ public class UserDto {
     private String login;
     private String registeredFromMessage;
     private Set<Role> roles;
+    private StatusCode statusCode;
 }

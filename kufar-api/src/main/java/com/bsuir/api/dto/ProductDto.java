@@ -20,6 +20,7 @@ public class ProductDto {
     private Category category;
     private String description;
     private String price;
+    private String priceUsd;
     private boolean isExchanged;
     private boolean isFavourite;
     private Date created;

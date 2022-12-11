@@ -7,7 +7,7 @@ import fufar from '../../asserts/fufar.png';
 import AvatarMenu from "./AvatarMenu";
 import {useNavigate} from "react-router-dom";
 import Entrance from "../../../pages/Entrance/Entrance";
-import {AuthContext} from "../../context";
+import {AuthContext} from "../../context/globalContext";
 
 
 const Header = ({callback}) => {

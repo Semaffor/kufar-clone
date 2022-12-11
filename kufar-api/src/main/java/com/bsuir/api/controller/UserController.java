@@ -43,12 +43,6 @@ public class UserController {
         );
     }
 
-    //    @PostMapping
-//    public String addUser(@RequestBody Map<String, Object> params)
-//    {
-//        System.out.println(params);
-//       return "dfs";
-//    }
     @PostMapping
     public String addUser(@RequestBody Map<String, Object> params) {
         User user = new User();
@@ -82,4 +76,8 @@ public class UserController {
         return userService.recoverPasswordByEmail(String.valueOf(params.get("email")));
     }
 
+    @PostMapping("/auth")
+    public UserDto auth(@RequestBody User user) {
+        return userService.auth(user);
+    }
 }

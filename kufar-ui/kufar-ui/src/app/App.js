@@ -7,16 +7,15 @@ import Profile from "../pages/Profile/Profile";
 import "./index.scss";
 import AppRouter from "../components/AppRouter";
 import {useState} from "react";
-import {AuthContext} from "../shared/context";
+import {AuthContext} from "../shared/context/globalContext";
 
 function App() {
   const [search, setSearch] = useState()
   const [user, setUser] = useState(null)
 
-
-
+  //TODO timeout
   function onChangeSearch(e) {
-    setTimeout(8000)
+    // setTimeout(8000)
     setSearch(e.target.value)
   }
 

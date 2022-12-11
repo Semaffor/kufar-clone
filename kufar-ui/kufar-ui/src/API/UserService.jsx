@@ -27,4 +27,8 @@ export default class UserService extends AbstractService {
   static async recoverPassword(values) {
     return await AbstractService.post("/user/recovery", values)
   }
+
+  static async authInSystem(credentials) {
+    return await AbstractService.post("/user/auth", credentials)
+  }
 }

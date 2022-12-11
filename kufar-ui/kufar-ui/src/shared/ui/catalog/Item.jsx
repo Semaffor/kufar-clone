@@ -23,7 +23,7 @@ const Item = ({post}) => {
           <div className={cl.Group}>
             {/*<strong>{post.id}</strong>*/}
             <strong>{post.productName}</strong>
-            <div>{post.price} р.</div>
+            <div>{post.price} р.    ~ {post.priceUsd}$</div>
           </div>
           <button className={cl.FavouriteButton}>
           {post?.isFavourite

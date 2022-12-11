@@ -6,15 +6,18 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
-// import PersonAdd from "@mui/icons-material/PersonAdd";
-// import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import {deepOrange} from "@mui/material/colors";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import TurnedInIcon from '@mui/icons-material/TurnedIn';
+import {useContext} from "react";
+import {AuthContext} from "../../context/globalContext";
 
 const AvatarMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState();
+  const {user, setUser} = useContext(AuthContext)
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -38,7 +41,7 @@ const AvatarMenu = () => {
               alt="avatar"
               sx={{bgcolor: deepOrange[500]}}
             >
-              B
+              {user.login[0]}
             </Avatar>
           </IconButton>
         </Tooltip>
@@ -80,14 +83,17 @@ const AvatarMenu = () => {
       >
 
         <MenuItem>
-          <Avatar /> My account
+          <TurnedInIcon color={'secondary'} sx={{mr:1}}/>Сохраненные запросы
+        </MenuItem>
+        <MenuItem>
+          <FavoriteIcon color={'secondary'} sx={{mr:1}}/>Закладки
         </MenuItem>
         <Divider />
         <MenuItem>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Logout color={'secondary'} fontSize="small" />
           </ListItemIcon>
-          Logout
+          Выйти
         </MenuItem>
       </Menu>
     </React.Fragment>

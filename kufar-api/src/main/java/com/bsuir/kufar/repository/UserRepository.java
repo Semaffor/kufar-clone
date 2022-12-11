@@ -1,6 +1,7 @@
 package com.bsuir.kufar.repository;
 
 import com.bsuir.kufar.entity.User;
+import lombok.NonNull;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
@@ -10,5 +11,7 @@ public interface UserRepository extends BaseRepository<User> {
     User findByLogin(String login);
 
     User findByEmail(String email);
-    Mono<User> findMonoByLogin(String login);
+//    Mono<User> findMonoByLogin(String login);
+
+    User findByLoginAndPassword(String login, char[] password);
 }

@@ -1,4 +1,7 @@
-//package com.bsuir.kufar.util;
+package com.bsuir.kufar.util;
+
+import java.io.Serializable;
+
 //
 //import java.io.Serial;
 //import java.io.Serializable;
@@ -16,7 +19,7 @@
 //import io.jsonwebtoken.SignatureAlgorithm;
 //
 //@Component
-//public class JwtTokenUtil implements Serializable {
+public class JwtTokenUtil implements Serializable {
 //
 //    @Serial
 //    private static final long serialVersionUID = -2550185165626007488L;
@@ -74,4 +77,4 @@
 //        final String username = getUsernameFromToken(token);
 //        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 //    }
-//}
+}
