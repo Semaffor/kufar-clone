@@ -1,10 +1,19 @@
 import React from 'react'
 import cl from './Item.module.scss'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {useNavigate} from "react-router-dom";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import UserService from "../../../API/UserService";
 
-const Item = ({post, favourite}) => {
+const Item = ({post}) => {
   const router = useNavigate();
 
+  async function favouriteChanger() {
+    const userId = 1;
+      const response = await UserService.changeFavouriteStatus(post.id, userId);
+    console.log(response.data);
+    post.isFavourite = true;
+  }
   return (
     <a className={cl.Item} onClick={() => router(`/products/${post.id}`)}>
       <img
@@ -13,10 +22,15 @@ const Item = ({post, favourite}) => {
         <div className={cl.Line}>
           <div className={cl.Group}>
             {/*<strong>{post.id}</strong>*/}
-            <strong>{post.name}</strong>
+            <strong>{post.productName}</strong>
             <div>{post.price} р.</div>
           </div>
-          <button onClick={() => favourite(post)}>+</button>
+          <button className={cl.FavouriteButton}>
+          {post?.isFavourite
+            ? <FavoriteIcon onClick={() => favouriteChanger(post)}/>
+            : <FavoriteBorderIcon onClick={() => favouriteChanger(post)}/>
+          }
+          </button>
         </div>
         <div className={cl.Line}>
           labels

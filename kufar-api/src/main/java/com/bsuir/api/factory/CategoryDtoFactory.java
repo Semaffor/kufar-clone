@@ -1,10 +1,7 @@
 package com.bsuir.api.factory;
 
 import com.bsuir.api.dto.CategoryDto;
-import com.bsuir.api.dto.UserDto;
 import com.bsuir.kufar.entity.Category;
-import com.bsuir.kufar.entity.User;
-import com.bsuir.kufar.util.DateHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class CategoryDtoFactory implements FactorySupport<Category, CategoryDto> {
+public class CategoryDtoFactory implements DtoFactorySupport<Category, CategoryDto> {
 
     @Override
     public CategoryDto createDto(Category entity) {

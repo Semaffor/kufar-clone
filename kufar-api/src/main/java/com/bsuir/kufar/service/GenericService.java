@@ -5,6 +5,7 @@ import com.bsuir.kufar.entity.BaseEntity;
 import com.bsuir.kufar.repository.BaseRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,10 @@ import java.util.List;
 
 public class GenericService<T extends BaseEntity> implements CrudOperations<T> {
 
+    @NonNull
     protected final BaseRepository<T> genericRepository;
 
-    public GenericService(BaseRepository<T> genericRepository) {
+    public GenericService(@NonNull BaseRepository<T> genericRepository) {
         this.genericRepository = genericRepository;
     }
 

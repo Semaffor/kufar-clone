@@ -8,6 +8,8 @@ import java.util.Date;
 @Entity
 @Data
 @ToString
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class FavouriteProduct extends BaseEntity {

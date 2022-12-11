@@ -10,30 +10,28 @@ import com.bsuir.kufar.repository.BaseRepository;
 import com.bsuir.kufar.repository.CategoryRepository;
 import com.bsuir.kufar.repository.ProductRepository;
 import com.bsuir.kufar.repository.UserRepository;
-import com.bsuir.kufar.service.CrudOperations;
 import com.bsuir.kufar.service.GenericService;
 import com.bsuir.kufar.service.ProductService;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Service
 public class ProductServiceImpl extends GenericService<Product> implements ProductService {
 
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
     public ProductServiceImpl(BaseRepository<Product> genericRepository, CategoryRepository categoryRepository,
-                              UserRepository userRepository) {
+                              ProductRepository productRepository, UserRepository userRepository) {
         super(genericRepository);
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
         this.userRepository = userRepository;
     }
 
@@ -46,8 +44,9 @@ public class ProductServiceImpl extends GenericService<Product> implements Produ
     @Transactional
     public Product saveProduct(ProductDto dto) {
         Product product = new Product();
-        Category category = categoryRepository.findById(dto.getCategoryId())
-                .orElseThrow(() -> new NotFoundException(String.format("Категория с id = %d не найдена", dto.getCategoryId())));
+        Category category = categoryRepository.findById(dto.getCategory().getId())
+                .orElseThrow(() -> new NotFoundException(String.format("Категория с id = %d не найдена",
+                        dto.getCategory().getId())));
 
         product.setName(dto.getProductName());
         product.setDescription(dto.getDescription());
@@ -68,5 +67,10 @@ public class ProductServiceImpl extends GenericService<Product> implements Produ
         product.setStatus(ProductStatus.MODERATING);
 
         return genericRepository.save(product);
+    }
+
+    @Override
+    public Page<Product> findAllWithFilter(PageRequest pageRequest, String filter) {
+        return productRepository.findByNameContainingIgnoreCase(pageRequest, filter);
     }
 }

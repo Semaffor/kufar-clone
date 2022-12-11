@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends BaseRepository<User> {
 
+    User findByLogin(String login);
+
+    User findByEmail(String email);
 }

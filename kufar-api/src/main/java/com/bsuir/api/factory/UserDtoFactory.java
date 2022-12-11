@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class UserDtoFactory implements FactorySupport<User, UserDto> {
+public class UserDtoFactory implements DtoFactorySupport<User, UserDto> {
 
     private final DateHandler dateHandler;
 

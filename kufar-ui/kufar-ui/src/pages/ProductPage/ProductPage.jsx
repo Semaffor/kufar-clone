@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useFetching} from "../../shared/hooks/useFetching";
 import ProductService from "../../API/ProductService";
-import {useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import Loader from "../../shared/ui/loader/Loader";
 import cl from "./ProductPage.module.scss"
 import MainContent from "../../shared/ui/content/MainContent";
@@ -17,14 +17,13 @@ const ProductPage = () => {
     const response = await ProductService.findProductById(id)
     setPost(response.data);
     setVendorId(response.data.creator.id)
-    console.log()
   })
 
   useEffect(() => {
     fetching();
   }, [])
 
-  const content = post ? <View post={post} vendorId={post.creator.id}/> : <Loader/>
+  const content = post ? <View post={post} vendorId={post?.creator?.id}/> : <Loader/>
 
   return (
     <div>

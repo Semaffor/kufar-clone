@@ -1,8 +1,9 @@
 package com.bsuir.api.factory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-public interface FactorySupport<T, R> {
+public interface DtoFactorySupport<T, R> {
     default T createFromDto(R entityDto) {
         throw new UnsupportedOperationException();
     }
@@ -10,6 +11,6 @@ public interface FactorySupport<T, R> {
         throw new UnsupportedOperationException();
     }
     default List<R> createDtoList(List<T> entityList) {
-        throw new UnsupportedOperationException();
+        return entityList.stream().map(this::createDto).collect(Collectors.toList());
     }
 }

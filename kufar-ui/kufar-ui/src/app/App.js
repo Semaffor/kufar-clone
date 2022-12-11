@@ -6,19 +6,35 @@ import {BrowserRouter, Link, Navigate, Route, Routes} from "react-router-dom";
 import Profile from "../pages/Profile/Profile";
 import "./index.scss";
 import AppRouter from "../components/AppRouter";
+import {useState} from "react";
+import {AuthContext} from "../shared/context";
 
 function App() {
+  const [search, setSearch] = useState()
+  const [user, setUser] = useState(null)
+
+
+
+  function onChangeSearch(e) {
+    setTimeout(8000)
+    setSearch(e.target.value)
+  }
 
   return (
-    <BrowserRouter>
-      <Header/>
-      <Container>
-        <AppRouter/>
-      </Container>
-      <Footer/>
-      <Link to={"/products"}>Main</Link>
-      <Link to={"/about"}>About</Link>
-    </BrowserRouter>
+    <AuthContext.Provider value={{
+      user,
+      setUser
+    }}>
+      <BrowserRouter>
+        <Header callback={onChangeSearch}/>
+        <Container>
+          <AppRouter searchValue={search}/>
+        </Container>
+        <Footer/>
+        <Link to={"/products"}>Main</Link>
+        <Link to={"/about"}>About</Link>
+      </BrowserRouter>
+    </AuthContext.Provider>
   );
 }
 

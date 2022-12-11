@@ -1,21 +1,27 @@
 package com.bsuir.api.dto;
 
+import com.bsuir.kufar.entity.Category;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 @Builder
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductDto {
+
+    private Long id;
     private Long userId;
     private String productName;
-    private Long categoryId;
+    private Category category;
     private String description;
     private String price;
     private boolean isExchanged;
-
+    private boolean isFavourite;
+    private Date created;
 
 }

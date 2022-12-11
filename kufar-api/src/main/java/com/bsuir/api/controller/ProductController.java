@@ -1,7 +1,7 @@
 package com.bsuir.api.controller;
 
-import com.bsuir.api.dto.CategoryDto;
 import com.bsuir.api.dto.ProductDto;
+import com.bsuir.api.factory.ProductDtoFactory;
 import com.bsuir.kufar.entity.Product;
 import com.bsuir.kufar.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -19,20 +19,25 @@ import java.util.Map;
 public class ProductController {
 
     private final ProductService productService;
+    private final ProductDtoFactory productDtoFactory;
 
     @GetMapping("")
     public Map<String, Object> getProducts(
             @RequestParam(defaultValue = "0", name = "_page") int pageNum,
-            @RequestParam(defaultValue = "2", name = "_limit") int limit
+            @RequestParam(defaultValue = "2", name = "_limit") int limit,
+            @RequestParam(defaultValue = "", name = "filter") String filter,
+            @RequestParam(defaultValue = "0", name = "userId") Long userId
     ) {
-        System.out.println("Page: " + pageNum + "\nLimit:" + limit);
-//        productService.save(Product.builder().description("eeee").build());
-        PageRequest request = PageRequest.of(pageNum, limit, Sort.by(Sort.Order.asc("id")));
+        PageRequest pageRequest = PageRequest.of(pageNum, limit, Sort.by(Sort.Order.desc("name")));
+        Page<Product> page = productService.findAllWithFilter(pageRequest, filter);
 
-        Page<Product> page = productService.findAll(request);
-
+        System.out.println(filter);
         Map<String, Object> response = new HashMap<>();
-        response.put("products", page.getContent());
+        if (userId == 0) {
+            response.put("products", productDtoFactory.createDtoList(page.getContent(), userId));
+        } else {
+            response.put("products", page.getContent());
+        }
         response.put("currentPage", page.getNumber());
         response.put("totalItems", page.getTotalElements());
         response.put("totalPages", page.getTotalPages());
