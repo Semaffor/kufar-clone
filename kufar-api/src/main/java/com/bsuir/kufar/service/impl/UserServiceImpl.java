@@ -13,7 +13,9 @@ import com.bsuir.kufar.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -119,5 +121,11 @@ public class UserServiceImpl extends GenericService<User> implements UserService
         user.setPassword(newPass.toCharArray());
         userRepository.save(user);
         return true;
+    }
+
+    @Override
+    public Mono<UserDetails> findByLogin(String username) {
+        return userRepository.findMonoByLogin(username)
+                .cast(UserDetails.class);
     }
 }
