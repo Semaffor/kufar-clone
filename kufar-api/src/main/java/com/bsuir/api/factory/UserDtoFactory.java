@@ -2,6 +2,7 @@ package com.bsuir.api.factory;
 
 import com.bsuir.api.dto.UserDto;
 import com.bsuir.kufar.entity.User;
+import com.bsuir.kufar.entity.enums.Role;
 import com.bsuir.kufar.entity.enums.StatusCode;
 import com.bsuir.kufar.service.UserService;
 import com.bsuir.kufar.util.DateHandler;
@@ -22,8 +23,10 @@ public class UserDtoFactory implements DtoFactorySupport<User, UserDto> {
         UserDto dto = UserDto.builder()
                 .id(entity.getId())
                 .login(entity.getLogin())
-                .roles(entity.getRoles())
+                .email(entity.getEmail())
+                .isBlocked(entity.isBlocked())
                 .build();
+        dto.setRoles(entity.getRoles().stream().map(Role::getRuValue).collect(Collectors.toSet()));
         dto.setLastVisit(dateHandler.convertDateToMouthAndYear(entity.getLastVisit()));
         dto.setRegisteredFromMessage(dateHandler.convertDateToMouthAndYear(entity.getRegistrationDate()));
         dto.setStatusCode(handleStatusCode(entity));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useDeferredValue} from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 import MainPage from "../pages/MainPage/MainPage";
 import Profile from "../pages/Profile/Profile";
@@ -7,7 +7,7 @@ import ProductPage from "../pages/ProductPage/ProductPage";
 import CreateAdv from "../pages/CreateAdv/CreateAdv";
 import UserActivation from "../shared/ui/UserActivation";
 import ForgotPassword from "../pages/forgotPassword/forgotPassword";
-import UserManagement from "../pages/Management/UserManagement";
+import UserManagementList from "../pages/Management/UserManagementList";
 import AdvsManagement from "../pages/Management/AdvsManagment";
 import SavedQueries from "../pages/Management/SavedQueries";
 import {Favorite} from "@mui/icons-material";
@@ -20,14 +20,19 @@ const AppRouter = ({searchValue}) => {
   //                 render={component}
   //                 exact={exact}/>
   // })
+
+  const deferredValue = useDeferredValue(searchValue, {
+    timeoutMs: 20000
+  });
+
   return (
     <Routes>
       {/*{routeComponents}*/}
-      <Route path="/products" element={<MainPage searchValue={searchValue}/>}/>
+      <Route path="/products" element={<MainPage searchValue={deferredValue}/>}/>
       <Route path="/products/:id" element={<ProductPage />}/>
       <Route path="/activate/user/:uuid" element={<UserActivation />}/>
       <Route path="/user/recovery" element={<ForgotPassword />}/>
-      <Route path="/management/user" element={<UserManagement />}/>
+      <Route path="/management/user" element={<UserManagementList />}/>
       <Route path="/management/advs" element={<AdvsManagement />}/>
       <Route path="/queries" element={<SavedQueries />}/>
       <Route path="/favourite" element={<Favourites />}/>

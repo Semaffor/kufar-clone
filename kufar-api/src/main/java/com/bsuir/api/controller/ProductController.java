@@ -49,8 +49,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProduct(@PathVariable Long id) {
-        return productService.findById(id);
+    public ProductDto getProduct(@PathVariable Long id) {
+        return productDtoFactory.createDto(productService.findById(id));
     }
 
     @PostMapping

@@ -42,9 +42,15 @@ public class ProductDtoFactory implements DtoFactorySupport<Product, ProductDto>
             dto.setPriceUsd(
                     String.valueOf(presisedPriceUsd));
         }
-        dto.setFavourite(favouriteProductService.isFavourite(userId, entity.getId()));
-
+        if (userId != null) {
+            dto.setFavourite(favouriteProductService.isFavourite(userId, entity.getId()));
+        }
         return dto;
+    }
+
+    @Override
+    public ProductDto createDto(Product entity) {
+        return createDto(entity, null);
     }
 
     public List<ProductDto> createDtoList(List<Product> entityList, Long userId) {

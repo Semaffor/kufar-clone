@@ -27,6 +27,7 @@ const MainPage = ({searchValue}) => {
     setCurrentPage(response.data.currentPage)
   })
 
+
   const handlePagination = (e) => {
     setCurrentPage(parseInt(e.target.textContent) - 1)
   }
@@ -53,8 +54,7 @@ const MainPage = ({searchValue}) => {
       </div>
       {isPostsLoading
         ? <Loader/>
-        : posts.length &&
-        <ItemList
+        : <ItemList
           posts={posts}
           handlePagination={handlePagination}
           totalPages={totalPages}

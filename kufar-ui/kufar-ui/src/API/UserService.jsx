@@ -39,4 +39,15 @@ export default class UserService extends AbstractService {
   static async findAllUsers() {
     return await AbstractService.findAll("/user/all");
   }
+
+  static async changeBlockStatus(id) {
+    return await AbstractService.post("/user/block", {userId: id});
+  }
+
+  static async changeRoles(id, roles) {
+    return await AbstractService.put("/user/roles", {
+      userId: id,
+      roles: roles
+    });
+  }
 }

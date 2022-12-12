@@ -4,8 +4,8 @@ import ProductService from "../../API/ProductService";
 import {useParams, useSearchParams} from "react-router-dom";
 import Loader from "../../shared/ui/loader/Loader";
 import cl from "./ProductPage.module.scss"
-import MainContent from "../../shared/ui/content/MainContent";
-import SideBar from "../../shared/ui/content/SideBar";
+import MainContent from "../../shared/ui/product-content/MainContent";
+import SideBar from "../../shared/ui/product-content/SideBar";
 
 const ProductPage = () => {
   const [post, setPost] = useState(null)

@@ -34,10 +34,21 @@ export default class AbstractService {
   }
 
   static async post(uri, object) {
-    console.log(object)
+    console.log(JSON.stringify(object))
     return await axios.post(AbstractService.blayt + uri, JSON.stringify(object), {
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'charset':'utf-8'
+      }
+    });
+  }
+
+  static async put(uri, object) {
+    console.log(JSON.stringify(object))
+    return await axios.put(AbstractService.blayt + uri, JSON.stringify(object), {
+      headers: {
+        'content-type': 'application/json',
+        'charset':'utf-8'
       }
     });
   }

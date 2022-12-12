@@ -23,10 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl extends GenericService<User> implements UserService {
@@ -159,4 +156,24 @@ public class UserServiceImpl extends GenericService<User> implements UserService
     public int getCountOfAdv(Long userId) {
         return userRepository.findTotalAdv(userId);
     }
+
+    @Override
+    public boolean changeBlockStatus(Long userId) {
+        User user = findById(userId);
+        user.setBlocked(!user.isBlocked());
+
+        userRepository.save(user);
+        return true;
+    }
+
+    @Override
+    public boolean changeRoles(Long userId, ArrayList<String> params) {
+        User user = findById(userId);
+        Set<Role> roles = new HashSet<>(Set.of(Role.USER));
+        params.forEach(role -> roles.add(Role.valueRuOf(role)));
+        user.setRoles(roles);
+        userRepository.save(user);
+        return true;
+    }
+
 }

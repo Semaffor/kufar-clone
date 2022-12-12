@@ -8,9 +8,9 @@ import Pagination from '@mui/material/Pagination';
 
 const ItemList = ({posts, handlePagination, totalPages, currentPage}) => {
 
-    if (!Number.isInteger(posts.length)) {
+    if (!posts.length) {
         return (
-            <h1 style={{textAlign: 'center', width: 800}}>Ничего не найдено</h1>
+            <h1 style={{textAlign: 'center', marginTop:40, marginLeft:70, width: 800}}>Ничего не найдено</h1>
         )
     }
 

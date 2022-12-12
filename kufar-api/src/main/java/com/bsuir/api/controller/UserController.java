@@ -8,9 +8,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
@@ -84,5 +87,18 @@ public class UserController {
     @PostMapping("/auth")
     public UserDto auth(@RequestBody User user) {
         return userService.auth(user);
+    }
+
+    @PostMapping("/block")
+    public boolean changeBlock(@RequestBody Map<String, Long> params) {
+        return userService.changeBlockStatus(params.get("userId"));
+    }
+
+    @PutMapping("/roles")
+    @SuppressWarnings("unchecked")
+    public boolean changeRoles(@RequestBody Map<String, Object> params) {
+        return userService.changeRoles(
+                Long.valueOf(String.valueOf(params.get("userId"))),
+                (ArrayList<String>) params.get("roles"));
     }
 }

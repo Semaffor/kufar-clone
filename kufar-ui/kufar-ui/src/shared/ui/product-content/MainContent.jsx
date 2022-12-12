@@ -2,6 +2,7 @@ import React from 'react';
 import cl from "./MainContent.module.scss";
 
 const MainContent = ({post}) => {
+  console.log(post);
   return (
     <div className={cl.MainContent}>
       {/*<PhotoCarousel width={700} height={456} photos={post.photo}/>*/}
@@ -16,12 +17,12 @@ const MainContent = ({post}) => {
           <div className={cl.Characteristics__params__param}>Состояние_______</div>
         </div>
         <div className={cl.Characteristics__values}>
-          <div>Состояние </div>
-          <div>Состояние </div>
+          <div className={cl.Characteristics__value}>{post.category.name}</div>
+          <div className={cl.Characteristics__value}>Б/у</div>
         </div>
       </div>
       <hr/>
-      <h2 >Описание</h2>
+      <h2>Описание</h2>
       <div className={cl.Description}>
         {post.description}
       </div>
