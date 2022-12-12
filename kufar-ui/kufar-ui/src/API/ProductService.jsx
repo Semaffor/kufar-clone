@@ -2,8 +2,8 @@ import AbstractService from "./UserService";
 
 export default class ProductService extends AbstractService {
 
-  static async getAllProducts(limit = 10, page = 1, filter="") {
-    return await AbstractService.getAll(limit, page, filter, "/product")
+  static async getAllProducts(limit = 10, page = 1, filter="", order) {
+    return await AbstractService.getAll(limit, page, filter, order, "/product")
   }
 
   static async findProductById(id) {

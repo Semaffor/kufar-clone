@@ -26,7 +26,7 @@ const Header = ({callback}) => {
           size="small"
           variant="outlined"
           height={"10px"}
-          onChange={e => callback(e)}
+          onChange={e => e.target.value.length <= 20 ? callback(e) : null}
         />
         <div className={cl.ThirdElem}>
           <Button

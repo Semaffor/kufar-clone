@@ -8,7 +8,6 @@ import Pagination from '@mui/material/Pagination';
 
 const ItemList = ({posts, handlePagination, totalPages, currentPage}) => {
 
-  // console.log(...posts)
     if (!Number.isInteger(posts.length)) {
         return (
             <h1 style={{textAlign: 'center', width: 800}}>Ничего не найдено</h1>

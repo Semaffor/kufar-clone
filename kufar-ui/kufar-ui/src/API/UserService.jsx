@@ -31,4 +31,12 @@ export default class UserService extends AbstractService {
   static async authInSystem(credentials) {
     return await AbstractService.post("/user/auth", credentials)
   }
+
+  static async getAdvCount(vendorId) {
+    return await AbstractService.get("/user/adv/"+vendorId)
+  }
+
+  static async findAllUsers() {
+    return await AbstractService.findAll("/user/all");
+  }
 }

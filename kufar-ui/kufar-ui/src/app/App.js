@@ -30,8 +30,6 @@ function App() {
           <AppRouter searchValue={search}/>
         </Container>
         <Footer/>
-        <Link to={"/products"}>Main</Link>
-        <Link to={"/about"}>About</Link>
       </BrowserRouter>
     </AuthContext.Provider>
   );

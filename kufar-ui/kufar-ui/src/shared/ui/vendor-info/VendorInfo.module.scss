@@ -18,3 +18,12 @@
   color: #00ad64;
   margin-bottom: 12px;
 }
+
+.VendorTitles {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    font-size: 12px;
+  }
+}

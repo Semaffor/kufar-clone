@@ -3,7 +3,6 @@ package com.bsuir.kufar.service;
 import com.bsuir.api.dto.UserDto;
 import com.bsuir.kufar.entity.User;
 //import org.springframework.security.core.userdetails.UserDetails;
-import reactor.core.publisher.Mono;
 
 public interface UserService  extends CrudOperations<User>{
     boolean changeIsFavouriteProduct(Long userId, Long productId);
@@ -17,4 +16,6 @@ public interface UserService  extends CrudOperations<User>{
 //    Mono<UserDetails> findByLogin(String username);
 
     UserDto auth(User user);
+
+    int getCountOfAdv(Long userId);
 }

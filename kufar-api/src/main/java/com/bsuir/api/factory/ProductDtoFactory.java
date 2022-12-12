@@ -4,6 +4,7 @@ import com.bsuir.api.dto.ProductDto;
 import com.bsuir.kufar.entity.Product;
 import com.bsuir.kufar.service.CurrencyService;
 import com.bsuir.kufar.service.FavouriteProductService;
+import com.bsuir.kufar.util.DateHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ public class ProductDtoFactory implements DtoFactorySupport<Product, ProductDto>
 
     private final FavouriteProductService favouriteProductService;
     private final CurrencyService currencyService;
+    private final DateHandler dateHandler;
 
     public ProductDto createDto(Product entity, Long userId) {
         ProductDto dto = ProductDto.builder()
@@ -26,9 +28,9 @@ public class ProductDtoFactory implements DtoFactorySupport<Product, ProductDto>
                 .category(entity.getCategory())
                 .description(entity.getDescription())
                 .isExchanged(entity.isExchanged())
-                .created(entity.getCreated())
                 .build();
 
+        dto.setCreated(dateHandler.getDataForProduct(entity.getCreated()));
         if (entity.getPrice() == 0) {
             dto.setPrice("free");
             dto.setPriceUsd("");

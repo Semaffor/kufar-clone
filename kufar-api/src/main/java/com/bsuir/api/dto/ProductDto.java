@@ -23,6 +23,6 @@ public class ProductDto {
     private String priceUsd;
     private boolean isExchanged;
     private boolean isFavourite;
-    private Date created;
+    private String created;
 
 }

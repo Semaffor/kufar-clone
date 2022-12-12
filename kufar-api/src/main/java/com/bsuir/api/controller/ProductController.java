@@ -26,9 +26,12 @@ public class ProductController {
             @RequestParam(defaultValue = "0", name = "_page") int pageNum,
             @RequestParam(defaultValue = "2", name = "_limit") int limit,
             @RequestParam(defaultValue = "", name = "filter") String filter,
-            @RequestParam(defaultValue = "0", name = "userId") Long userId
+            @RequestParam(defaultValue = "0", name = "userId") Long userId,
+            @RequestParam(defaultValue = "false", name = "order") boolean orderParam
     ) {
-        PageRequest pageRequest = PageRequest.of(pageNum, limit, Sort.by(Sort.Order.desc("name")));
+
+        Sort.Order order = orderParam ? Sort.Order.asc("created"):Sort.Order.desc("created");
+        PageRequest pageRequest = PageRequest.of(pageNum, limit, Sort.by(order));
         Page<Product> page = productService.findAllWithFilter(pageRequest, filter);
 
         System.out.println(filter);

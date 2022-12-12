@@ -154,4 +154,9 @@ public class UserServiceImpl extends GenericService<User> implements UserService
         }
         return userDtoFactory.createDto(foundUser);
     }
+
+    @Override
+    public int getCountOfAdv(Long userId) {
+        return userRepository.findTotalAdv(userId);
+    }
 }

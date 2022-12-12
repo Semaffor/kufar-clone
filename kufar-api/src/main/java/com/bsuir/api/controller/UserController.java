@@ -1,19 +1,14 @@
 package com.bsuir.api.controller;
 
-import com.bsuir.api.dto.CaptchaDto;
 import com.bsuir.api.dto.UserDto;
 import com.bsuir.api.factory.DtoFactorySupport;
 import com.bsuir.kufar.entity.User;
 import com.bsuir.kufar.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,7 +20,6 @@ public class UserController {
 
     private final UserService userService;
     private final DtoFactorySupport<User, UserDto> userDtoFactory;
-    private final RestTemplate restTemplate;
 
     @Value("${recaptcha.secret}")
     private String secretKey;
@@ -33,6 +27,11 @@ public class UserController {
     @GetMapping("/{id}")
     private UserDto getUser(@PathVariable Long id) {
         return userDtoFactory.createDto(userService.findById(id));
+    }
+
+    @GetMapping("/adv/{id}")
+    private int getUserAdvCount(@PathVariable Long id) {
+        return userService.getCountOfAdv(id);
     }
 
     @PutMapping("/addFavourite")
@@ -57,6 +56,7 @@ public class UserController {
 //        if (!responseFromCaptcha.isSuccess()) {
 //            return "capthca";
 //        }
+        System.out.println(secretKey);
 
         if (captchaResponse.length() < 5) {
             return "captcha";
@@ -69,6 +69,11 @@ public class UserController {
     @GetMapping
     public boolean activateCode(@RequestParam("code") String uuid) {
         return userService.activateAccountByCode(uuid);
+    }
+
+    @GetMapping("/all")
+    public List<UserDto> getAll() {
+        return userDtoFactory.createDtoList(userService.findAll());
     }
 
     @PostMapping("/recovery")

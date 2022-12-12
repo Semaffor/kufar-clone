@@ -4,12 +4,13 @@ export default class AbstractService {
 
   static blayt = "http://localhost:8080/api/v1"
 
-  static async getAll(limit = 10, page = 1, filter, uri) {
+  static async getAll(limit = 10, page = 1, filter, order, uri) {
     return await axios.get(AbstractService.blayt + uri, {
       params: {
         _limit: limit,
         _page: page,
-        filter: filter
+        filter: filter,
+        order
       }
     })
   }
@@ -40,4 +41,11 @@ export default class AbstractService {
       }
     });
   }
+
+  static async get(uri) {
+    console.log(uri)
+    return await axios.get(AbstractService.blayt + uri);
+  }
+
+
 }

@@ -3,6 +3,7 @@ package com.bsuir.api.factory;
 import com.bsuir.api.dto.UserDto;
 import com.bsuir.kufar.entity.User;
 import com.bsuir.kufar.entity.enums.StatusCode;
+import com.bsuir.kufar.service.UserService;
 import com.bsuir.kufar.util.DateHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,10 +24,18 @@ public class UserDtoFactory implements DtoFactorySupport<User, UserDto> {
                 .login(entity.getLogin())
                 .roles(entity.getRoles())
                 .build();
+        dto.setLastVisit(dateHandler.convertDateToMouthAndYear(entity.getLastVisit()));
         dto.setRegisteredFromMessage(dateHandler.convertDateToMouthAndYear(entity.getRegistrationDate()));
         dto.setStatusCode(handleStatusCode(entity));
         return dto;
     }
+
+
+    @Override
+    public List<UserDto> createDtoList(List<User> entityList) {
+        return entityList.stream().map(this::createDto).collect(Collectors.toList());
+    }
+
 
     private StatusCode handleStatusCode(User entity) {
         if (!entity.isActivated()) {
@@ -37,10 +46,5 @@ public class UserDtoFactory implements DtoFactorySupport<User, UserDto> {
             return StatusCode.ACCOUNT_BAN;
         }
         return StatusCode.OK;
-    }
-
-    @Override
-    public List<UserDto> createDtoList(List<User> entityList) {
-        return entityList.stream().map(this::createDto).collect(Collectors.toList());
     }
 }

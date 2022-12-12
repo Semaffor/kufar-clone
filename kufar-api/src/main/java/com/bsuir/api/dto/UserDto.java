@@ -15,5 +15,7 @@ public class UserDto {
     private String login;
     private String registeredFromMessage;
     private Set<Role> roles;
+    private String lastVisit;
+    private int totalAdv;
     private StatusCode statusCode;
 }

@@ -28,6 +28,9 @@ public class User extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Date registrationDate;
 
+    @Temporal(TemporalType.DATE)
+    private Date lastVisit;
+
     @Column(columnDefinition = "boolean default false")
     private boolean isBlocked;
 

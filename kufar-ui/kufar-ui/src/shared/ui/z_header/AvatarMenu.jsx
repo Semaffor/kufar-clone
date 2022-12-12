@@ -13,10 +13,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import {useContext} from "react";
 import {AuthContext} from "../../context/globalContext";
+import {useNavigate} from "react-router-dom";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
 
 const AvatarMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState();
   const {user, setUser} = useContext(AuthContext)
+  const router = useNavigate()
 
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -25,6 +29,8 @@ const AvatarMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const iconColor = 'secondary';
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -82,16 +88,22 @@ const AvatarMenu = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
 
-        <MenuItem>
-          <TurnedInIcon color={'secondary'} sx={{mr:1}}/>Сохраненные запросы
+        <MenuItem onClick={e => router('/management/user')}>
+          <ManageAccountsIcon color={iconColor} sx={{mr:1}}/>Управление пользователями
         </MenuItem>
-        <MenuItem>
-          <FavoriteIcon color={'secondary'} sx={{mr:1}}/>Закладки
+        <MenuItem onClick={e => router('/management/advs')}>
+          <AssignmentLateIcon color={iconColor} sx={{mr:1}}/>Модерация объявлений
+        </MenuItem>
+        <MenuItem onClick={e => router('/queries')}>
+          <TurnedInIcon color={iconColor} sx={{mr:1}}/>Сохраненные запросы
+        </MenuItem>
+        <MenuItem onClick={e => router('/favourite')}>
+          <FavoriteIcon color={iconColor} sx={{mr:1}}/>Закладки
         </MenuItem>
         <Divider />
         <MenuItem>
           <ListItemIcon>
-            <Logout color={'secondary'} fontSize="small" />
+            <Logout color={iconColor} fontSize="small" />
           </ListItemIcon>
           Выйти
         </MenuItem>
