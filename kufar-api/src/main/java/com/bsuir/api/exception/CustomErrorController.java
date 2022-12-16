@@ -42,7 +42,6 @@ public class CustomErrorController extends AbstractErrorController {
                         .errorDescription((String) attributes.get("message"))
                         .build()
                 );
-        System.out.println(body);
         return body;
     }
 }

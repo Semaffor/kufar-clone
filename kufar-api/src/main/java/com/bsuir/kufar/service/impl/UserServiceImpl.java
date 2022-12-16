@@ -149,6 +149,7 @@ public class UserServiceImpl extends GenericService<User> implements UserService
                     .build();
             return dto;
         }
+        foundUser.setLastVisit(new Date());
         return userDtoFactory.createDto(foundUser);
     }
 

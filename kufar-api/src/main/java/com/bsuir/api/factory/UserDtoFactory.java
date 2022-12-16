@@ -25,11 +25,12 @@ public class UserDtoFactory implements DtoFactorySupport<User, UserDto> {
                 .login(entity.getLogin())
                 .email(entity.getEmail())
                 .isBlocked(entity.isBlocked())
+                .statusCode(handleStatusCode(entity))
                 .build();
         dto.setRoles(entity.getRoles().stream().map(Role::getRuValue).collect(Collectors.toSet()));
         dto.setLastVisit(dateHandler.convertDateToMouthAndYear(entity.getLastVisit()));
-        dto.setRegisteredFromMessage(dateHandler.convertDateToMouthAndYear(entity.getRegistrationDate()));
-        dto.setStatusCode(handleStatusCode(entity));
+        dto.setRegistrationDate(dateHandler.formatToDayMonthYear(entity.getRegistrationDate()));
+        dto.setRegisteredFromMessage(dateHandler.calculateForumParticipation(entity.getRegistrationDate()));
         return dto;
     }
 

@@ -18,6 +18,7 @@ public class ProductDto {
     private Long userId;
     private String productName;
     private Category category;
+    private Long categoryId;
     private String description;
     private String price;
     private String priceUsd;

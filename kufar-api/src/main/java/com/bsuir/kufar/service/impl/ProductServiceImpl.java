@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl extends GenericService<Product> implements ProductService {
@@ -44,7 +45,7 @@ public class ProductServiceImpl extends GenericService<Product> implements Produ
     @Transactional
     public Product saveProduct(ProductDto dto) {
         Product product = new Product();
-        Category category = categoryRepository.findById(dto.getCategory().getId())
+        Category category = categoryRepository.findById(dto.getCategoryId())
                 .orElseThrow(() -> new NotFoundException(String.format("Категория с id = %d не найдена",
                         dto.getCategory().getId())));
 
@@ -59,7 +60,7 @@ public class ProductServiceImpl extends GenericService<Product> implements Produ
                 .orElseThrow(() -> new NotFoundException(String.format("Пользователь с id = %d не найден", dto.getUserId())));
 
         product.setCreator(vendor);
-        if (dto.getPrice().equals("free")) {
+        if (dto.getPrice().equals("free") || dto.getPrice().equals("0")) {
             product.setPrice(0.0);
         } else {
             product.setPrice(Double.valueOf(dto.getPrice()));
@@ -71,6 +72,19 @@ public class ProductServiceImpl extends GenericService<Product> implements Produ
 
     @Override
     public Page<Product> findAllWithFilter(PageRequest pageRequest, String filter) {
-        return productRepository.findByNameContainingIgnoreCase(pageRequest, filter);
+        return productRepository.findByNameContainingIgnoreCaseAndStatus(pageRequest, filter, ProductStatus.ACTIVE);
+    }
+
+    @Override
+    public boolean changeStatus(Long productId, ProductStatus status) {
+        Product product = findById(productId);
+        product.setStatus(status);
+        productRepository.save(product);
+        return true;
+    }
+
+    @Override
+    public List<Product> findAllWithStatus(ProductStatus status) {
+        return productRepository.findByStatus(status);
     }
 }

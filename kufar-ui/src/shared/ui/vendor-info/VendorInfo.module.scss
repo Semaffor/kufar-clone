@@ -1,0 +1,30 @@
+.VendorInfo {
+  display: flex;
+  flex-direction: column;
+
+  img {
+    width: 64px;
+    height: 64px;
+    margin: 0 7px 7px 0;
+  }
+
+}
+
+.VendorHead {
+  display: flex;
+}
+
+.TotalCount {
+  color: #00ad64;
+  margin-bottom: 12px;
+}
+
+.VendorTitles {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
